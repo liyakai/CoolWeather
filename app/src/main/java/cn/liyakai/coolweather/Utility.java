@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,6 +88,7 @@ public class Utility {
     * */
     public static void handleWeatherResponse(Context context, String response) {
         try{
+
             JSONObject jsonObject = new JSONObject(response);
             JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
             String cityName = weatherInfo.getString("city");
@@ -108,6 +110,7 @@ public class Utility {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日", Locale.CHINA);
         SharedPreferences.Editor editor= PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putBoolean("city_selected", true);
+        editor.putString("city_name", cityName);
         editor.putString("weather_code", weatherCode);
         editor.putString("temp1", temp1);
         editor.putString("temp2", temp2);

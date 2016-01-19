@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -114,10 +115,10 @@ public class WeatherActivity extends Activity implements View.OnClickListener {
     }
 
     /*
-    * 查询天气带好所对应的天气。
+    * 查询天气代号所对应的天气。
     * */
     private void queryWeatherInfo(String weatherCode) {
-        String address  = "http://weather.com.cn/data/cityinfo/" + weatherCode + ".xml";
+        String address  = "http://weather.com.cn/data/cityinfo/" + weatherCode + ".html";
         queryFromServer(address, "weatherCode");
     }
 
@@ -172,6 +173,8 @@ public class WeatherActivity extends Activity implements View.OnClickListener {
         currentDateText.setText(prefs.getString("current_date", ""));
         weatherInfoLayout.setVisibility(View.VISIBLE);
         cityNameText.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 }
 
